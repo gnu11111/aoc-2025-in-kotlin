@@ -1,33 +1,25 @@
 package at.gnu.adventofcode.year2025
 
-import kotlin.math.abs
-
 class Day01(val rotations: List<String>) {
 
-    fun part1(): Int {
-        var position = START_POSITION
-        var password = 0
-        for (rotation in rotations) {
-            val amount = Integer.valueOf(rotation.substring(1))
-            val direction = if (rotation.startsWith("L")) -1 else 1
-            position = (position + (direction * amount)).mod(DIAL_SIZE)
-            if (position == 0) password++
-        }
-        return password
-    }
+    fun part1() = calculatePassword()
 
-    fun part2(): Int {
+    fun part2() = calculatePassword(countZeroPasses = true)
+
+    private fun calculatePassword(countZeroPasses: Boolean = false): Int {
         var position = START_POSITION
-        var password = 0
+        var zeroesPassed = 0
+        var endedOnZero = 0
         for (rotation in rotations) {
-            val amount = Integer.valueOf(rotation.substring(1))
             val direction = if (rotation.startsWith("L")) -1 else 1
+            val amount = Integer.valueOf(rotation.substring(1))
             repeat(amount) {
                 position = (position + direction).mod(DIAL_SIZE)
-                if (position == 0) password++
+                if (position == 0) zeroesPassed++
             }
+            if (position == 0) endedOnZero++
         }
-        return password
+        return if (countZeroPasses) zeroesPassed else endedOnZero
     }
 
     companion object {
