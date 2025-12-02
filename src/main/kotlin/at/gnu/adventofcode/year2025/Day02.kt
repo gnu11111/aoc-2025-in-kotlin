@@ -4,7 +4,7 @@ class Day02(ranges: List<String>) {
 
     private val ranges = ranges.map {
         val startEnd = it.split("-")
-        startEnd.first().toLong() to startEnd.last().toLong()
+        startEnd.first().toLong()..startEnd.last().toLong()
     }
 
     fun part1(): Long =
@@ -13,8 +13,8 @@ class Day02(ranges: List<String>) {
     fun part2(): Long =
         ranges.fold(setOf<Long>()) { ids, range -> ids + range.findIllegalIDs(allPeriods = true) }.sum()
 
-    private fun Pair<Long, Long>.findIllegalIDs(allPeriods: Boolean = false): Set<Long> =
-        (first..second).fold(setOf()) { ids, number ->
+    private fun LongRange.findIllegalIDs(allPeriods: Boolean = false): Set<Long> =
+        (first..last).fold(setOf()) { ids, number ->
             if (number.toString().isIllegal(allPeriods)) ids + number else ids
         }
 
