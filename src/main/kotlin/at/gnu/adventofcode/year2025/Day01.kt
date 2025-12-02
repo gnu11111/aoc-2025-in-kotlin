@@ -1,6 +1,6 @@
 package at.gnu.adventofcode.year2025
 
-class Day01(val rotations: List<String>) {
+class Day01(private val rotations: List<String>) {
 
     fun part1() = calculatePassword()
 
@@ -26,7 +26,6 @@ class Day01(val rotations: List<String>) {
         const val RESOURCE = "/adventofcode/year2025/Day01.txt"
         const val START_POSITION = 50
         const val DIAL_SIZE = 100
-
     }
 }
 
