@@ -1,5 +1,8 @@
 package at.gnu.adventofcode.year2025
 
+import kotlin.time.ExperimentalTime
+import kotlin.time.measureTimedValue
+
 class Day02(ranges: List<String>) {
 
     private val ranges = ranges.map {
@@ -46,8 +49,9 @@ class Day02(ranges: List<String>) {
     }
 }
 
+@ExperimentalTime
 fun main() {
     val day02 = Day02(Day02::class.java.getResource(Day02.RESOURCE)!!.readText().trim().split(","))
-    println("Day02::part1 -> ${day02.part1()}")
-    println("Day02::part2 -> ${day02.part2()}")
+    measureTimedValue { day02.part1() }.let { (result, time) -> println("Day02::part1 -> $result [$time]") }
+    measureTimedValue { day02.part2() }.let { (result, time) -> println("Day02::part2 -> $result [$time]") }
 }

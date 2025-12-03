@@ -1,5 +1,8 @@
 package at.gnu.adventofcode.year2025
 
+import kotlin.time.ExperimentalTime
+import kotlin.time.measureTimedValue
+
 class Day01(private val rotations: List<String>) {
 
     fun part1() = calculatePassword()
@@ -29,8 +32,9 @@ class Day01(private val rotations: List<String>) {
     }
 }
 
+@ExperimentalTime
 fun main() {
     val day01 = Day01(Day01::class.java.getResource(Day01.RESOURCE)!!.readText().trim().split("\n", "\r\n"))
-    println("Day01::part1 -> ${day01.part1()}")
-    println("Day01::part2 -> ${day01.part2()}")
+    measureTimedValue { day01.part1() }.let { (result, time) -> println("Day01::part1 -> $result [$time]") }
+    measureTimedValue { day01.part2() }.let { (result, time) -> println("Day01::part2 -> $result [$time]") }
 }
