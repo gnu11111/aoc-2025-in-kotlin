@@ -1,6 +1,5 @@
 package at.gnu.adventofcode.year2025
 
-import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 
 class Day01(private val rotations: List<String>) {
@@ -32,7 +31,6 @@ class Day01(private val rotations: List<String>) {
     }
 }
 
-@ExperimentalTime
 fun main() {
     val day01 = Day01(Day01::class.java.getResource(Day01.RESOURCE)!!.readText().trim().split("\n", "\r\n"))
     measureTimedValue { day01.part1() }.let { (result, time) -> println("Day01::part1 -> $result [$time]") }

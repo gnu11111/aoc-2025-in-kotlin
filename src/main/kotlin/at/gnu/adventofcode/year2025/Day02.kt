@@ -1,6 +1,5 @@
 package at.gnu.adventofcode.year2025
 
-import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 
 class Day02(ranges: List<String>) {
@@ -49,7 +48,6 @@ class Day02(ranges: List<String>) {
     }
 }
 
-@ExperimentalTime
 fun main() {
     val day02 = Day02(Day02::class.java.getResource(Day02.RESOURCE)!!.readText().trim().split(","))
     measureTimedValue { day02.part1() }.let { (result, time) -> println("Day02::part1 -> $result [$time]") }

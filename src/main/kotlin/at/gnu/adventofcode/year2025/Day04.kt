@@ -1,6 +1,5 @@
 package at.gnu.adventofcode.year2025
 
-import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 
 class Day04(grid: List<String>) {
@@ -40,7 +39,6 @@ class Day04(grid: List<String>) {
 }
 
 
-@ExperimentalTime
 fun main() {
     val day04 = Day04(Day04::class.java.getResource(Day04.RESOURCE)!!.readText().trim().split("\n", "\r\n"))
     measureTimedValue { day04.part1() }.let { (result, time) -> println("Day04::part1 -> $result [$time]") }

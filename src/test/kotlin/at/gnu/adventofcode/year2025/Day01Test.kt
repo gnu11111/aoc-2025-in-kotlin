@@ -2,7 +2,6 @@ package at.gnu.adventofcode.year2025
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 
 class Day01Test {
@@ -14,7 +13,7 @@ class Day01Test {
         Day01::part2 to rotations to 6,
     )
 
-    @Test @ExperimentalTime
+    @Test
     fun testMySolution() {
         for ((function, input) in test.keys) {
             val (result, time) = measureTimedValue { function(Day01(input)) }
