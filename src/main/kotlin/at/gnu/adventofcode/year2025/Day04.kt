@@ -16,10 +16,9 @@ class Day04(grid: List<String>) {
         paperRolls.count { paperRolls.neighborsOf(it).size < 4 }
 
     fun part2(): Int {
-        var count = 0
         val remainingRolls = paperRolls.toMutableList()
         var rollsToRemove = paperRolls
-        while ((count++ < paperRolls.size) && rollsToRemove.isNotEmpty()) {
+        while (rollsToRemove.isNotEmpty()) {
             rollsToRemove = remainingRolls.filter { remainingRolls.neighborsOf(it).size < 4 }
             remainingRolls.removeAll(rollsToRemove)
         }
