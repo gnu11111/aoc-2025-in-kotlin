@@ -7,7 +7,7 @@ import kotlin.time.measureTimedValue
 
 class Day04Test {
 
-    private val positions = listOf("..@@.@@@@.", "@@@.@.@.@@", "@@@@@.@.@@", "@.@@@@..@.", "@@.@@@@.@@", ".@@@@@@@.@",
+    private val grid = listOf("..@@.@@@@.", "@@@.@.@.@@", "@@@@@.@.@@", "@.@@@@..@.", "@@.@@@@.@@", ".@@@@@@@.@",
         ".@.@.@.@@@", "@.@@@.@@@@", ".@@@@@@@@.", "@.@.@@@.@.")
 
     private val test = mapOf(
@@ -17,10 +17,10 @@ class Day04Test {
 
     @Test @ExperimentalTime
     fun testMySolution() {
-        val day04 = Day04(positions)
+        val day04 = Day04(grid)
         for (function in test.keys) {
             val (result, time) = measureTimedValue { function(day04) }
-            println("Day04::${function.name}: ${positions.size} positions -> $result [$time]")
+            println("Day04::${function.name}: ${grid.first().length}x${grid.size} grid -> $result [$time]")
             assertEquals(test[function], result)
         }
     }

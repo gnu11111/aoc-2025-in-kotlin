@@ -3,49 +3,37 @@ package at.gnu.adventofcode.year2025
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 
-class Day04(val positions: List<String>) {
-
-    private val paperRolls = positions.flatMapIndexed { y, row ->
-        row.mapIndexedNotNull { x, c ->
-            if (c == '@') PaperRoll(x, y) else null
-        }
-    }
+class Day04(grid: List<String>) {
 
     data class PaperRoll(val x: Int, val y: Int)
 
+    private val paperRolls = grid.flatMapIndexed { y, row ->
+        row.mapIndexedNotNull { x, c -> if (c == '@') PaperRoll(x, y) else null }
+    }
+
 
     fun part1(): Int =
-        paperRolls.count { paperRolls.neighbors(it).size < 4 }
+        paperRolls.count { paperRolls.neighborsOf(it).size < 4 }
 
     fun part2(): Int {
         var count = 0
-        val remaining = paperRolls.toMutableList()
-        var remove = paperRolls
-        while ((count++ < paperRolls.size) && remove.isNotEmpty()) {
-            remove = remaining.filter { remaining.neighbors(it).size < 4 }
-            remaining.removeAll(remove)
+        val remainingRolls = paperRolls.toMutableList()
+        var rollsToRemove = paperRolls
+        while ((count++ < paperRolls.size) && rollsToRemove.isNotEmpty()) {
+            rollsToRemove = remainingRolls.filter { remainingRolls.neighborsOf(it).size < 4 }
+            remainingRolls.removeAll(rollsToRemove)
         }
-        return paperRolls.size - remaining.size
+        return paperRolls.size - remainingRolls.size
     }
 
 
-    private fun List<PaperRoll>.neighbors(roll: PaperRoll): Set<PaperRoll> =
-        setOfNotNull(paperRoll(roll.x - 1, roll.y - 1), paperRoll(roll.x, roll.y - 1),
-            paperRoll(roll.x + 1, roll.y - 1), paperRoll(roll.x - 1, roll.y), paperRoll(roll.x + 1, roll.y),
-            paperRoll(roll.x - 1, roll.y + 1), paperRoll(roll.x, roll.y + 1), paperRoll(roll.x + 1, roll.y + 1))
+    private fun List<PaperRoll>.neighborsOf(roll: PaperRoll): Set<PaperRoll> =
+        setOfNotNull(paperRollAt(roll.x - 1, roll.y - 1), paperRollAt(roll.x, roll.y - 1),
+            paperRollAt(roll.x + 1, roll.y - 1), paperRollAt(roll.x - 1, roll.y), paperRollAt(roll.x + 1, roll.y),
+            paperRollAt(roll.x - 1, roll.y + 1), paperRollAt(roll.x, roll.y + 1), paperRollAt(roll.x + 1, roll.y + 1))
 
-    private fun List<PaperRoll>.paperRoll(x: Int, y: Int): PaperRoll? =
+    private fun List<PaperRoll>.paperRollAt(x: Int, y: Int): PaperRoll? =
         firstOrNull { (it.x == x) && (it.y == y) }
-
-    @Suppress("unused")
-    private fun List<PaperRoll>.display() {
-        for (y in 0 until positions.size) {
-            for (x in 0 until positions.first().length)
-                if (paperRoll(x, y) != null) print("@") else print(".")
-            println()
-        }
-        println()
-    }
 
     companion object {
         const val RESOURCE = "/adventofcode/year2025/Day04.txt"
