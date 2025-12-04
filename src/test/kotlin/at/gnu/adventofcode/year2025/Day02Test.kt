@@ -17,9 +17,8 @@ class Day02Test {
 
     @Test
     fun testMySolution() {
-        val day02 = Day02(input)
         for (function in test.keys) {
-            val (result, time) = measureTimedValue { function.invoke(day02) }
+            val (result, time) = measureTimedValue { function.invoke(Day02(input)) }
             println("Day02::${function.name}: ${input.size} ranges -> $result [${time}]")
             assertEquals(test[function], result)
         }

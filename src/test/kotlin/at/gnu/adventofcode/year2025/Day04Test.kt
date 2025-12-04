@@ -16,9 +16,8 @@ class Day04Test {
 
     @Test
     fun testMySolution() {
-        val day04 = Day04(grid)
         for (function in test.keys) {
-            val (result, time) = measureTimedValue { function(day04) }
+            val (result, time) = measureTimedValue { function(Day04(grid)) }
             println("Day04::${function.name}: ${grid.first().length}x${grid.size} grid -> $result [$time]")
             assertEquals(test[function], result)
         }
