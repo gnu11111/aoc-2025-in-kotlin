@@ -2,20 +2,20 @@ package at.gnu.adventofcode.year2025
 
 import kotlin.time.measureTimedValue
 
-class Day05(freshIngridients: List<String>, private val ingridients: List<Long>) {
+class Day05(freshIngredients: List<String>, private val ingredients: List<Long>) {
 
-    private val freshIngridients = freshIngridients.map {
+    private val freshIngredients = freshIngredients.map {
         val (start, end) = it.split("-")
         start.toLong()..end.toLong()
     }
 
 
-    fun part1(): Long =
-        ingridients.count { ingredient -> freshIngridients.any { ingredient in it } }.toLong()
+    fun part1() =
+        ingredients.count { ingredient -> this@Day05.freshIngredients.any { ingredient in it } }.toLong()
 
     fun part2(): Long {
-        val ranges = freshIngridients.toMutableSet()
-        val remove = freshIngridients.toMutableSet()
+        val ranges = this@Day05.freshIngredients.toMutableSet()
+        val remove = this@Day05.freshIngredients.toMutableSet()
         while (remove.isNotEmpty()) {
             val add = mutableSetOf<LongRange>()
             remove.clear()
@@ -43,9 +43,9 @@ class Day05(freshIngridients: List<String>, private val ingridients: List<Long>)
 
 fun main() {
     val input = Day05::class.java.getResource(Day05.RESOURCE)!!.readText().trim().split("\n\n", "\r\n\r\n")
-    val freshIngridients = input.first().trim().split("\n", "\r\n")
-    val ingridients = input.last().trim().split("\n", "\r\n").map(String::toLong)
-    val day05 = Day05(freshIngridients, ingridients)
+    val freshIngredients = input.first().trim().split("\n", "\r\n")
+    val ingredients = input.last().trim().split("\n", "\r\n").map(String::toLong)
+    val day05 = Day05(freshIngredients, ingredients)
     measureTimedValue { day05.part1() }.let { (result, time) -> println("Day05::part1 -> $result [$time]") }
     measureTimedValue { day05.part2() }.let { (result, time) -> println("Day05::part2 -> $result [$time]") }
 }
