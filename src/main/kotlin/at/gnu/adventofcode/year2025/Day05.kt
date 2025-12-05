@@ -2,7 +2,7 @@ package at.gnu.adventofcode.year2025
 
 import kotlin.time.measureTimedValue
 
-class Day05(freshIngredients: List<String>, private val ingredients: List<Long>) {
+class Day05(freshIngredients: List<String>, val ingredients: List<Long>) {
 
     private val freshIngredients = freshIngredients.map {
         val (start, end) = it.split("-")
@@ -11,11 +11,11 @@ class Day05(freshIngredients: List<String>, private val ingredients: List<Long>)
 
 
     fun part1() =
-        ingredients.count { ingredient -> this@Day05.freshIngredients.any { ingredient in it } }.toLong()
+        ingredients.count { ingredient -> freshIngredients.any { ingredient in it } }.toLong()
 
     fun part2(): Long {
-        val ranges = this@Day05.freshIngredients.toMutableSet()
-        val remove = this@Day05.freshIngredients.toMutableSet()
+        val ranges = freshIngredients.toMutableSet()
+        val remove = freshIngredients.toMutableSet()
         while (remove.isNotEmpty()) {
             val add = mutableSetOf<LongRange>()
             remove.clear()
