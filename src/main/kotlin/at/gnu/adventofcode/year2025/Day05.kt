@@ -10,7 +10,7 @@ class Day05(freshIngredients: List<String>, val ingredients: List<Long>) {
     }
 
     infix fun LongRange.overlaps(range: LongRange)= (last >= range.first) && (range.last >= first)
-    infix fun LongRange.merge(range: LongRange) = first.coerceAtMost(range.first)..last.coerceAtLeast(range.last)
+    infix fun LongRange.mergeWith(range: LongRange) = first.coerceAtMost(range.first)..last.coerceAtLeast(range.last)
 
 
     fun part1() =
@@ -24,7 +24,7 @@ class Day05(freshIngredients: List<String>, val ingredients: List<Long>) {
             remove.clear()
             for (range in ranges) {
                 ranges.firstOrNull { (it != range) && (it overlaps range) }?.let {
-                    add += it merge range
+                    add += it mergeWith range
                     remove += setOf(range, it)
                 }
             }
