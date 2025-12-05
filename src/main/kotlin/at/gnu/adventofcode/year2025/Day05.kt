@@ -20,13 +20,11 @@ class Day05(freshIngridients: List<String>, private val ingridients: List<Long>)
             val add = mutableSetOf<LongRange>()
             remove.clear()
             for (range in ranges) {
-                val start = ranges.firstOrNull { (range != it) && (range.first in it) }
-                if (start != null) {
+                ranges.firstOrNull { (range != it) && (range.first in it) }?.let { start ->
                     add += start.first..start.last.coerceAtLeast(range.last)
                     remove += range
                 }
-                val end = ranges.firstOrNull { (range != it) && (range.last in it) }
-                if (end != null) {
+                ranges.firstOrNull { (range != it) && (range.last in it) }?.let { end ->
                     add += range.first.coerceAtMost(end.first)..end.last
                     remove += range
                 }
