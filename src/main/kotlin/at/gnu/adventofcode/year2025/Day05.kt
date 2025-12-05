@@ -20,16 +20,11 @@ class Day05(freshIngredients: List<String>, val ingredients: List<Long>) {
             val add = mutableSetOf<LongRange>()
             remove.clear()
             for (range in ranges) {
-                ranges.firstOrNull { (range != it) && (range.first in it) }?.let { start ->
-                    add += start.first..start.last.coerceAtLeast(range.last)
-                    remove += range
-                }
-                ranges.firstOrNull { (range != it) && (range.last in it) }?.let { end ->
-                    add += range.first.coerceAtMost(end.first)..end.last
-                    remove += range
+                ranges.firstOrNull { (range != it) && ((range.first in it) || (range.last in it)) }?.let {
+                    add += it.first.coerceAtMost(range.first)..it.last.coerceAtLeast(range.last)
+                    remove += setOf(range, it)
                 }
             }
-            remove.removeAll(add)
             ranges.removeAll(remove)
             ranges.addAll(add)
         }
