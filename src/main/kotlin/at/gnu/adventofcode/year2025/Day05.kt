@@ -1,6 +1,5 @@
 package at.gnu.adventofcode.year2025
 
-import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 
 class Day05(freshIngridients: List<String>, private val ingridients: List<Long>) {
@@ -16,20 +15,19 @@ class Day05(freshIngridients: List<String>, private val ingridients: List<Long>)
 
     fun part2(): Long {
         val ranges = freshIngridients.toMutableSet()
-        val add = mutableSetOf<LongRange>()
         val remove = freshIngridients.toMutableSet()
         while (remove.isNotEmpty()) {
-            add.clear()
+            val add = mutableSetOf<LongRange>()
             remove.clear()
             for (range in ranges) {
-                val first = ranges.firstOrNull { (range != it) && (range.first in it) }
-                if (first != null) {
-                    add += first.first..first.last.coerceAtLeast(range.last)
+                val start = ranges.firstOrNull { (range != it) && (range.first in it) }
+                if (start != null) {
+                    add += start.first..start.last.coerceAtLeast(range.last)
                     remove += range
                 }
-                val last = ranges.firstOrNull { (range != it) && (range.last in it) }
-                if (last != null) {
-                    add += range.first.coerceAtMost(last.first)..last.last
+                val end = ranges.firstOrNull { (range != it) && (range.last in it) }
+                if (end != null) {
+                    add += range.first.coerceAtMost(end.first)..end.last
                     remove += range
                 }
             }
@@ -45,7 +43,6 @@ class Day05(freshIngridients: List<String>, private val ingridients: List<Long>)
     }
 }
 
-@ExperimentalTime
 fun main() {
     val input = Day05::class.java.getResource(Day05.RESOURCE)!!.readText().trim().split("\n\n", "\r\n\r\n")
     val freshIngridients = input.first().trim().split("\n", "\r\n")
