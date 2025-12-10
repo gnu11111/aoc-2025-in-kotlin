@@ -27,7 +27,7 @@ class Day06(val numbersText: List<String>, val operatorsText: String) {
         var operator = '+'
         var total = 0L
         val numbers = mutableListOf<Long>()
-        for (x in 0 until (maxX + 1)) {
+        for (x in 0..maxX) {
             val newOperator = operatorsText.getOrElse(x) { operator }
             if (newOperator in setOf('+', '*'))
                 operator = newOperator
@@ -38,7 +38,7 @@ class Day06(val numbersText: List<String>, val operatorsText: String) {
                     number = if (number == 0L) char.digitToInt().toLong() else (number * 10L) + char.digitToInt().toLong()
             }
             if (number != 0L)
-                numbers += number//.also { println(it) }
+                numbers += number
             else {
                 total += if (operator == '+')
                     numbers.sum()
